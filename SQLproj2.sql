@@ -83,12 +83,12 @@ order by 1  desc;
 
 with company_year (company, years, sum_tlo) as
  (
-	select company, year(`date`), sum(total_laid_off)
+    select company, year(`date`), sum(total_laid_off)
     from layoffs2
-	group by company, year(`date`)
+    group by company, year(`date`)
 ), company_year_rank as 
 (
-	select *, Dense_rank() over(partition by years order by sum_tlo desc) as ranking 
+    select *, Dense_rank() over(partition by years order by sum_tlo desc) as ranking 
     from company_year
     where years is not null
 )
